@@ -39,9 +39,9 @@ describe ProductsController do
 
     before do
       sign_in user2
-      controller.stub(:user_signed_in?).and_return(true)
-      controller.stub(:current_user).and_return(user2)
-      controller.stub(:authenticate_user!).and_return(user2)
+      allow(controller).to receive(:user_signed_in?).and_return(true)
+      allow(controller).to receive(:current_user).and_return(user2)
+      allow(controller).to receive(:authenticate_user!).and_return(user2)
       product.user = user
     end
 
@@ -119,9 +119,9 @@ describe ProductsController do
 
         before do
           sign_in user
-          controller.stub(:user_signed_in?).and_return(true)
-          controller.stub(:current_user).and_return(user)
-          controller.stub(:authenticate_user!).and_return(user)
+          allow(controller).to receive(:user_signed_in?).and_return(true)
+          allow(controller).to receive(:current_user).and_return(user)
+          allow(controller).to receive(:authenticate_user!).and_return(user)
           product.user = user
         end
 
@@ -145,13 +145,13 @@ describe ProductsController do
         describe 'with invalid params' do
           it 'expose a newly created but unsaved product' do
 
-            Product.any_instance.stub(:save).and_return(false)
+            allow_any_instance_of(Product).to receive(:save).and_return(false)
             post :create, { product: { 'title' => 'invalid value' }, category_id: category.to_param }
             expect(controller.product).to be_a_new(Product)
           end
 
           it "re-renders the 'new' template" do
-            Product.any_instance.stub(:save).and_return(false)
+            allow_any_instance_of(Product).to receive(:save).and_return(false)
             post :create, { product: { 'title' => 'invalid value' }, category_id: category.to_param }
             expect(response).to render_template('new')
           end
@@ -167,15 +167,15 @@ describe ProductsController do
 
       before do
         sign_in user
-        controller.stub(:user_signed_in?).and_return(true)
-        controller.stub(:current_user).and_return(user)
-        controller.stub(:authenticate_user!).and_return(user)
+        allow(controller).to receive(:user_signed_in?).and_return(true)
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:authenticate_user!).and_return(user)
         product.user = user
       end
 
       describe 'with valid params' do
         it 'updates the requested product' do
-          Product.any_instance.stub(:save).and_return(true)
+          allow_any_instance_of(Product).to receive(:save).and_return(true)
           put :update, { id: product.to_param, product: { 'title' => 'New value' }, category_id: category.to_param }
           expect(response).to redirect_to(category_product_path(category, product))
         end
@@ -193,13 +193,13 @@ describe ProductsController do
 
       describe 'with invalid params' do
         it 'expose the product' do
-          Product.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Product).to receive(:save).and_return(false)
           put :update, { id: product.to_param, product: { 'title' => 'invalid value' }, category_id: category.to_param }
           expect(controller.product).to eq(product)
         end
 
         it "re-renders the 'edit' template" do
-          Product.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Product).to receive(:save).and_return(false)
           put :update, { id: product.to_param, product: { 'title' => 'invalid value' }, category_id: category.to_param }
           expect(response).to redirect_to(category_product_url(category, product))
         end
@@ -215,9 +215,9 @@ describe ProductsController do
     context 'user is signed in' do
       before do
         sign_in user
-        controller.stub(:user_signed_in?).and_return(true)
-        controller.stub(:current_user).and_return(user)
-        controller.stub(:authenticate_user!).and_return(user)
+        allow(controller).to receive(:user_signed_in?).and_return(true)
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:authenticate_user!).and_return(user)
         product.user = user
       end
 

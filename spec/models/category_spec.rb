@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Category do
-  it { should validate_uniqueness_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 end
