@@ -47,6 +47,8 @@ class CategoriesController < ApplicationController
     end
 
     def authorize
-      redirect_to new_user_session_path if not current_user.admin?
+      if not current_user.admin?
+        redirect_to categories_url, flash: { error: 'You are not allowed to access this page.' }
+      end
     end
 end

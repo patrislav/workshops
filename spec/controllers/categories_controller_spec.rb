@@ -21,32 +21,87 @@ describe CategoriesController do
     end
 
     describe 'GET new' do
-      it 'redirects user to the login page' do
+      it 'redirects to categories page' do
         get :new, {}, valid_session
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(categories_path)
+      end
+
+      it 'renders error message' do
+        get :new, {}, valid_session
+        expect(controller.flash[:error]).to eq 'You are not allowed to access this page.'
       end
     end
 
     describe 'GET edit' do
-      it 'redirects user to the login page' do
+      it 'redirects to categories page' do
         category = Category.create! valid_attributes
         get :edit, { id: category.to_param }, valid_session
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(categories_path)
+      end
+
+      it 'renders error message' do
+        category = Category.create! valid_attributes
+        get :edit, { id: category.to_param }, valid_session
+        expect(controller.flash[:error]).to eq 'You are not allowed to access this page.'
       end
     end
 
     describe 'POST create' do
-      it 'redirects user to the login page' do
+      it 'redirects to categories page' do
         post :create, {category: valid_attributes}, valid_session
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(categories_path)
+      end
+
+      it 'does not create a new category' do
+        expect {
+          post :create, {category: valid_attributes}, valid_session
+        }.to_not change(Category, :count)
+      end
+
+      it 'renders error message' do
+        post :create, {category: valid_attributes}, valid_session
+        expect(controller.flash[:error]).to eq 'You are not allowed to access this page.'
       end
     end
 
     describe 'PUT update' do
-      it 'redirect user to the login page' do
+      it 'redirects to categories page' do
         category = Category.create! valid_attributes
         put :update, {:id => category.to_param, :category => { 'name' => 'MyString'}}, valid_session
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(categories_path)
+      end
+
+      it 'does not update the category' do
+        category = Category.create! valid_attributes
+        put :update, {:id => category.to_param, :category => { 'name' => 'MyNewString'}}, valid_session
+        expect(category.name).to_not eq 'MyNewString'
+      end
+
+      it 'renders error message' do
+        category = Category.create! valid_attributes
+        put :update, {:id => category.to_param, :category => { 'name' => 'MyString'}}, valid_session
+        expect(controller.flash[:error]).to eq 'You are not allowed to access this page.'
+      end
+    end
+
+    describe 'DELETE destroy' do
+      it 'redirects to categories page' do
+        category = Category.create! valid_attributes
+        delete :destroy, { id: category.to_param }, valid_session
+        expect(response).to redirect_to(categories_path)
+      end
+
+      it 'does not delete the category' do
+        category = Category.create! valid_attributes
+        expect {
+          delete :destroy, { id: category.to_param }, valid_session
+        }.to_not change(Category, :count)
+      end
+
+      it 'renders error message' do
+        category = Category.create! valid_attributes
+        delete :destroy, { id: category.to_param }, valid_session
+        expect(controller.flash[:error]).to eq 'You are not allowed to access this page.'
       end
     end
   end
