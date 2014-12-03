@@ -163,14 +163,13 @@ describe ProductsController do
   describe 'PUT update' do
     context 'user is signed in' do
       let(:user) { create(:user) }
-      let(:product) { Product.create! valid_attributes }
+      let(:product) { Product.create! valid_attributes.merge(user_id: user.id) }
 
       before do
         sign_in user
         allow(controller).to receive(:user_signed_in?).and_return(true)
         allow(controller).to receive(:current_user).and_return(user)
         allow(controller).to receive(:authenticate_user!).and_return(user)
-        product.user = user
       end
 
       describe 'with valid params' do
@@ -201,7 +200,7 @@ describe ProductsController do
         it "re-renders the 'edit' template" do
           allow_any_instance_of(Product).to receive(:save).and_return(false)
           put :update, { id: product.to_param, product: { 'title' => 'invalid value' }, category_id: category.to_param }
-          expect(response).to redirect_to(category_product_url(category, product))
+          expect(response).to render_template('edit')
         end
       end
     end
