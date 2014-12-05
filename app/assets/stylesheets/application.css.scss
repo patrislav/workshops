@@ -3,3 +3,19 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+html, body {
+  background-color: #fffddd;
+  width: 100%;
+  height: 100%;
+}
+
+.site-container {
+  max-width: 860px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.breadcrumb {
+  border: 1px solid #ddd;
+}

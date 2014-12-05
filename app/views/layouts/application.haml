@@ -24,7 +24,26 @@
           - else
             %li= link_to 'Login', new_user_session_path
             %li= link_to 'Sign up', new_user_registration_path
-    .container-fluid
+
+    .site-container.container
+      - if notice
+        .row
+          .col-lg-12
+            .alert.alert-info.alert-dismissable{role: 'alert'}
+              %button.close{type: 'button', 'data-dismiss' => 'alert'}
+                %span{'aria-hidden' => 'true'} &times;
+                %span.sr-only Close
+              = notice
+
+      - if flash[:error]
+        .row
+          .col-lg-12
+            .alert.alert-danger.alert-dismissable{role: 'alert'}
+              %button.close{type: 'button', 'data-dismiss' => 'alert'}
+                %span{'aria-hidden' => 'true'} &times;
+                %span.sr-only Close
+              = flash[:error]
+              
       .row
         .col-lg-12
           = yield

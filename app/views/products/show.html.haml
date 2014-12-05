@@ -3,20 +3,6 @@
   %li= link_to category.name, category
   %li.active= product.title
 
-- if notice
-  .alert.alert-info.alert-dismissable{role: 'alert'}
-    %button.close{type: 'button', 'data-dismiss' => 'alert'}
-      %span{'aria-hidden' => 'true'} &times;
-      %span.sr-only Close
-    = notice
-
-- if flash[:error]
-  .alert.alert-danger.alert-dismissable{role: 'alert'}
-    %button.close{type: 'button', 'data-dismiss' => 'alert'}
-      %span{'aria-hidden' => 'true'} &times;
-      %span.sr-only Close
-    = flash[:error]
-
 #product-panel.panel.panel-default
   .panel-heading
     - if signed_in? and (product.user == current_user or current_user.admin?)
