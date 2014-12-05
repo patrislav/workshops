@@ -1,10 +1,10 @@
 = form_for [category, product], html: { class: 'form-horizontal' } do |f|
   - if product.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(product.errors.count, "error")} prohibited this product from being saved:"
-      %ul
+    #error_explanation.panel.panel-danger
+      .panel-heading= "#{pluralize(product.errors.count, "error")} prohibited this product from being saved:"
+      .panel-body
         - product.errors.full_messages.each do |msg|
-          %li= msg
+          %div= msg
 
   .form-group
     = f.label :title, class: 'col-sm-2 control-label'

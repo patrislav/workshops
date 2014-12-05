@@ -1,32 +1,39 @@
-%p#notice= notice
+%ol.breadcrumb
+  %li= link_to 'Categories', categories_path
+  %li.active= category.name
 
-%h1= category.name
+- if notice
+  .alert.alert-info.alert-dismissable{role: 'alert'}
+    %button.close{type: 'button', 'data-dismiss' => 'alert'}
+      %span{'aria-hidden' => 'true'} &times;
+      %span.sr-only Close
+    = notice
 
-%table.table
-  %tr
-    %th Name
-    %th Average rating
-    %th Price
-    %th
 
-  - category.products.each do |product|
+#category-panel.panel.panel-default
+  .panel-heading
+    - if signed_in?
+      .pull-right
+        = link_to glyphicon(:plus), new_category_product_path(category), title: 'New product', class: 'btn btn-primary btn-sm'
+        = link_to glyphicon(:pencil), edit_category_path(category), title: 'Edit category', class: 'btn btn-default btn-sm' if current_user.admin?
+    %h3.panel-title
+      = category.name
+
+  %table.table.table-striped
     %tr
-      %td= link_to product.title, [category, product]
-      %td= product.average_rating ? ("%.2f" % product.average_rating) : "N/A"
-      %td $#{product.price}
-      %td
-        - if signed_in? and (current_user.admin? or current_user == product.user)
-          = link_to 'Edit', edit_category_product_path(category, product)
-          \|
-          = link_to 'Destroy', [category, product], method: :delete, data: { confirm: 'Are you sure?' }
+      %th Name
+      %th Average rating
+      %th Price
+      %th
 
-- if signed_in?
-  .modal.fade#new-product-modal{tabindex: -1, role: 'dialog'}
-    .modal-dialog
-      .modal-content
-        = render 'products/form_modal'
+    - category.products.each do |product|
+      %tr
+        %td= link_to product.title, [category, product]
+        %td= product.average_rating ? ("%.2f" % product.average_rating) : "N/A"
+        %td $#{product.price}
+        %td
+          - if signed_in? and (current_user.admin? or current_user == product.user)
+            .pull-right
+              = link_to glyphicon(:pencil), edit_category_product_path(category, product), class: "btn btn-default btn-xs", title: 'Edit'
+              = link_to glyphicon(:remove), [category, product], method: :delete, class: "btn btn-danger btn-xs", title: 'Remove', data: { confirm: 'Are you sure?' }
 
-- if signed_in?
-  %button{type: 'button', class: 'btn btn-primary', 'onclick' => "$('#new-product-modal').modal('toggle')"} New product
-= link_to 'Edit category', edit_category_path(category), class: 'btn btn-default' if signed_in? and current_user.admin?
-= link_to 'Back', categories_path, class: 'btn btn-default'

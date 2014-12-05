@@ -16,7 +16,7 @@ class Product < ActiveRecord::Base
     def price_decimal_places_limit
       parts = price.to_s.split('.')
       if parts.last and parts.last.size > 2
-        errors.add(:price, 'Price should have no more than 2 decimal places.')
+        errors.add(:price, 'should have no more than 2 decimal places')
       end
     end
 
