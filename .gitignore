@@ -10,6 +10,7 @@
 public/tmp
 public/uploads
 public/javascripts/translations.js
+public/assets
 
 config/mongoid.yml
 config/secrets.yml
