@@ -1,0 +1,19 @@
+
+.review {
+  .timestamp {
+    font-size: 0.9em;
+    color: #666;
+    padding: 0 5px;
+  }
+
+  .rating {
+    .golden {
+      color: #E6C200;
+      text-shadow: 1px 1px 0px #666
+    }
+    .gray {
+      color: #666;
+    }
+  }
+}
+

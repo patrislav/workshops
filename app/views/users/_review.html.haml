@@ -1,0 +1,8 @@
+.review
+  .header
+    .pull-right.rating= review.stars
+    %em Reviewed
+    %strong.product= link_to review.product.title, [review.product.category, review.product]
+    %span.timestamp= review.publication_time
+
+  .content.well= review.content

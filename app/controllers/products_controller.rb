@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   expose(:products)
   expose(:product)
   expose(:review) { Review.new }
-  expose_decorated(:reviews, ancestor: :product)
+  expose_decorated(:reviews, ancestor: :product) {|scope| scope.order(id: :desc)}
 
   def index
   end

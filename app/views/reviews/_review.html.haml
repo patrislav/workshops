@@ -1,4 +1,8 @@
-%p= review.content
-%p
-  %b= review.rating
-  %em= review.author
+.review
+  .header
+    .pull-right.rating= review.stars
+    %strong.author= link_to review.author, review.user
+    %span.timestamp= review.publication_time
+
+  .content.well= review.content
+
