@@ -1,26 +1,57 @@
-%p#notice= notice
-%p#error= flash[:error]
+%ol.breadcrumb
+  %li= link_to 'Categories', categories_path
+  %li= link_to category.name, category
+  %li.active= product.title
 
-%p
-  %b Title:
-  = product.title
-%p
-  %b Description:
-  = product.description
-%p
-  %b Price:
-  = product.price
+- if notice
+  .alert.alert-info.alert-dismissable{role: 'alert'}
+    %button.close{type: 'button', 'data-dismiss' => 'alert'}
+      %span{'aria-hidden' => 'true'} &times;
+      %span.sr-only Close
+    = notice
 
-%p
-  %b Category
-  = product.category.name
+- if flash[:error]
+  .alert.alert-danger.alert-dismissable{role: 'alert'}
+    %button.close{type: 'button', 'data-dismiss' => 'alert'}
+      %span{'aria-hidden' => 'true'} &times;
+      %span.sr-only Close
+    = flash[:error]
 
-%h3 Reviews
-= render 'reviews/form'
+#product-panel.panel.panel-default
+  .panel-heading
+    - if signed_in? and (product.user == current_user or current_user.admin?)
+      .pull-right
+        = link_to glyphicon(:pencil), edit_category_product_path(category, product), title: 'Edit product', class: 'btn btn-default btn-sm'
+        = link_to glyphicon(:remove), [category, product], method: :delete, title: 'Remove product', class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }
+    %h3.panel-title= product.title
 
-= render reviews
+  .panel-body
+    .col-sm-2
+      .product-label Price:
+      .product-price= "$#{product.price}"
 
-- if signed_in? and (product.user == current_user or current_user.admin?)
-  = link_to 'Edit', edit_category_product_path(category.id, product.id)
-  \|
-= link_to 'Back', product.category, class: 'btn btn-primary'
+    .col-sm-10
+      .product-label Description:
+      .well.well-sm= product.description
+
+  .panel-footer
+    = link_to product.category.name, product.category
+    %small.pull-right
+      %em Posted by
+      = link_to UserDecorator.new(product.user).name, product.user
+      %span.timestamp= product.publication_time
+    .clearfix
+
+#product-reviews.panel.panel-default
+  .panel-heading
+    - if signed_in?
+      .pull-right
+        = link_to glyphicon(:plus), '#', title: 'Add new review', id: 'show-form-btn', class: 'btn btn-primary btn-sm'
+    %h3.panel-title Reviews
+
+  .panel-body
+    #review-form
+      = render 'reviews/form'
+
+    #reviews
+      = render reviews

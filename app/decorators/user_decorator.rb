@@ -6,7 +6,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def last_reviews
-    object.reviews.last(5).order(id: :desc)
+    object.reviews.order(id: :desc).limit(5)
   end
 
 end

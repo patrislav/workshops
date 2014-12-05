@@ -1,11 +1,11 @@
 
-.review {
-  .timestamp {
-    font-size: 0.9em;
-    color: #666;
-    padding: 0 5px;
-  }
+.timestamp {
+  font-size: 0.9em;
+  color: #666;
+  padding: 0 5px;
+}
 
+.review {
   .rating {
     .golden {
       color: #E6C200;
@@ -16,4 +16,37 @@
     }
   }
 }
+
+#product-panel, #product-reviews {
+  .panel-title {
+    font-size: 1.5em;
+  }
+}
+
+#product-reviews {
+  #review-form {
+    display: none;
+    margin-bottom: 10px;
+  }
+}
+
+#product-panel {
+  .product-label {
+    font-size: 0.8em;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .product-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #E88317;
+  }
+
+  .panel-footer {
+    padding: 5px 15px;
+  }
+}
+
+
 

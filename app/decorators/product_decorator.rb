@@ -10,4 +10,8 @@ class ProductDecorator < Draper::Decorator
   #     end
   #   end
 
+  def publication_time
+    created_at.strftime("%-d %b %Y, %H:%M")
+  end
+
 end
