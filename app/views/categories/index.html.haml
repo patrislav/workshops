@@ -1,19 +1,27 @@
-%h1 Listing categories
+%ol.breadcrumb
+  %li.active Categories
 
-%table.table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+#category-list.panel.panel-default
+  .panel-heading
+    - if signed_in? and current_user.admin?
+      .pull-right
+        = link_to glyphicon(:plus), new_category_path, title: 'New category', class: 'btn btn-primary btn-xs'
+    %h3.panel-title All categories
 
-  - categories.each do |category|
+  %table.table.table-striped
     %tr
-      %td= category.name
-      %td= link_to 'Show', category
-      %td= link_to 'Edit', edit_category_path(category) if signed_in? and current_user.admin?
-      %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } if signed_in? and current_user.admin?
+      %th Name
+      %th Products
+      %th
 
-%br
+    - categories.each do |category|
+      %tr
+        %td= link_to category.name, category
+        %td= category.products.count
+        %td
+          - if signed_in? and current_user.admin?
+            .pull-right
+              = link_to glyphicon(:pencil), edit_category_path(category), title: 'Edit', class: 'btn btn-default btn-xs'
+              = link_to glyphicon(:remove), category, method: :delete, title: 'Remove', class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' }
 
-= link_to 'New Category', new_category_path if signed_in? and current_user.admin?
+

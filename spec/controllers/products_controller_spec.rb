@@ -79,15 +79,6 @@ describe ProductsController do
     end
   end
 
-  describe 'GET index' do
-    it 'expose all products' do
-      product = Product.create! valid_attributes
-      product.category = category
-      get :index, category_id: category.id
-      expect(controller.products).to eq([product])
-    end
-  end
-
   describe 'GET show' do
     it 'expose the requested product' do
       product = Product.create! valid_attributes

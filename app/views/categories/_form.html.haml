@@ -1,13 +1,16 @@
-= form_for category do |f|
+= form_for category, html: { class: 'form-horizontal' } do |f|
   - if category.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@category.errors.count, "error")} prohibited this category from being saved:"
-      %ul
+    #error_explanation.panel.panel-danger
+      .panel-heading= "#{pluralize(category.errors.count, "error")} prohibited this category from being saved:"
+      .panel-body
         - category.errors.full_messages.each do |msg|
-          %li= msg
+          %div= msg
 
   .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
 
-  = f.submit 'Save', class: 'btn btn-default'
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "Save", class: 'btn btn-primary'
