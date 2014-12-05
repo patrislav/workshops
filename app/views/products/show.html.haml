@@ -23,4 +23,4 @@
 - if signed_in? and (product.user == current_user or current_user.admin?)
   = link_to 'Edit', edit_category_product_path(category.id, product.id)
   \|
-= link_to 'Back', category_products_path, class: 'btn btn-primary'
+= link_to 'Back', product.category, class: 'btn btn-primary'

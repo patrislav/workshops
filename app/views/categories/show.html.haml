@@ -1,18 +1,32 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = category.name
+%h1= category.name
 
-%p
+%table.table
+  %tr
+    %th Name
+    %th Average rating
+    %th Price
+    %th
+
   - category.products.each do |product|
-    = product.title
+    %tr
+      %td= link_to product.title, [category, product]
+      %td= product.average_rating ? ("%.2f" % product.average_rating) : "N/A"
+      %td $#{product.price}
+      %td
+        - if signed_in? and (current_user.admin? or current_user == product.user)
+          = link_to 'Edit', edit_category_product_path(category, product)
+          \|
+          = link_to 'Destroy', [category, product], method: :delete, data: { confirm: 'Are you sure?' }
 
-%p
-  %h3 New product
-  = render 'products/form'
+- if signed_in?
+  .modal.fade#new-product-modal{tabindex: -1, role: 'dialog'}
+    .modal-dialog
+      .modal-content
+        = render 'products/form_modal'
 
-- if signed_in? and current_user.admin?
-  = link_to 'Edit', edit_category_path(category)
-  \|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+- if signed_in?
+  %button{type: 'button', class: 'btn btn-primary', 'onclick' => "$('#new-product-modal').modal('toggle')"} New product
+= link_to 'Edit category', edit_category_path(category), class: 'btn btn-default' if signed_in? and current_user.admin?
+= link_to 'Back', categories_path, class: 'btn btn-default'
