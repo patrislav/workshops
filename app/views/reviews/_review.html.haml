@@ -1,8 +1,11 @@
-.review
-  .header
-    .pull-right.rating= review.stars
-    %strong.author= link_to review.author, review.user
-    %span.timestamp= review.publication_time
+.review.media
+  = link_to image_tag(review.user.gravatar_url(size: 64), alt: 'User Gravatar', class: 'img-rounded'), review.user, class: 'media-left'
 
-  .content.well= review.content
+  .media-body
+    .header
+      .pull-right.rating= review.stars
+      %strong.author= link_to review.author, review.user
+      %span.timestamp= review.publication_time
+
+    .content.well= review.content
 

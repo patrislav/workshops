@@ -91,6 +91,7 @@ GEM
       multi_json (~> 1.0)
       net-http-persistent (>= 2.7)
       net-http-pipeline
+    gravtastic (3.2.6)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -226,6 +227,7 @@ DEPENDENCIES
   draper
   factory_girl_rails
   ffaker
+  gravtastic
   haml-rails
   jquery-rails
   konf

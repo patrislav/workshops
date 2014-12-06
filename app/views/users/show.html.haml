@@ -3,18 +3,32 @@
   %li.active= user.name
 
 #user-panel.panel.panel-default
-  .panel-heading
-    %h3.panel-title= user.name
-
   .panel-body
-    %h4 Last reviews
-    .user-reviews
-      - user.last_reviews.each do |review|
-        = render partial: 'review', locals: { review: ReviewDecorator.new(review) }
+    .media
+      = link_to image_tag(user.gravatar_url(size: 140), alt: 'User Gravatar', class: 'img-rounded'), 'https://en.gravatar.com/', class: 'media-left'
 
-      - if user.last_reviews.empty?
-        .alert.alert-warning.empty-warning
-          - if current_user == user
-            You have not reviewed any product yet.
-          - else
-            This user has not reviewed any product yet.
+      .media-body
+        .user-name
+          %h3.media-heading= user.name
+        %p
+          %strong Email:
+          = user.email
+        %p
+          %strong Products:
+          = user.products.count
+        %p
+          %strong Reviews:
+          = user.reviews.count
+
+    .reviews-container.container-fluid
+      %h4 Last reviews
+      .user-reviews
+        - user.last_reviews.each do |review|
+          = render partial: 'review', locals: { review: ReviewDecorator.new(review) }
+
+        - if user.last_reviews.empty?
+          .alert.alert-warning.empty-warning
+            - if current_user == user
+              You have not reviewed any product yet.
+            - else
+              This user has not reviewed any product yet.
