@@ -3,7 +3,7 @@
 
 #category-list.panel.panel-default
   .panel-heading
-    - if signed_in? and current_user.admin?
+    - if current_user.try(:admin?)
       .pull-right
         = link_to glyphicon(:plus), new_category_path, title: 'New category', class: 'btn btn-primary btn-xs'
     %h3.panel-title All categories
@@ -19,7 +19,7 @@
         %td= link_to category.name, category
         %td= category.products.count
         %td
-          - if signed_in? and current_user.admin?
+          - if current_user.try(:admin?)
             .pull-right
               = link_to glyphicon(:pencil), edit_category_path(category), title: 'Edit', class: 'btn btn-default btn-xs'
               = link_to glyphicon(:remove), category, method: :delete, title: 'Remove', class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' }

@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
   end
 
   def authorize! params
-    unless user_signed_in? and (current_user.admin? or product.user == current_user)
+    unless current_user.try(:admin?) or product.user == current_user
       redirect_to category_product_url(category, product),
         flash: { error: params[:message] || 'You are not allowed to perform this action.' }
     end

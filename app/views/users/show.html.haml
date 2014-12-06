@@ -14,4 +14,7 @@
 
       - if user.last_reviews.empty?
         .alert.alert-warning.empty-warning
-          This user has not reviewed any product yet.
+          - if current_user == user
+            You have not reviewed any product yet.
+          - else
+            This user has not reviewed any product yet.

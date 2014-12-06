@@ -5,7 +5,7 @@
 
 #product-panel.panel.panel-default
   .panel-heading
-    - if signed_in? and (product.user == current_user or current_user.admin?)
+    - if current_user.try(:admin?) or product.user == current_user
       .pull-right
         = link_to glyphicon(:pencil), edit_category_product_path(category, product), title: 'Edit product', class: 'btn btn-default btn-sm'
         = link_to glyphicon(:remove), [category, product], method: :delete, title: 'Remove product', class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }

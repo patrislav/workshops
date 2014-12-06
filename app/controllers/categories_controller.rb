@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
     end
 
     def authorize
-      if not current_user.admin?
+      unless current_user.try(:admin?)
         redirect_to categories_url, flash: { error: 'You are not allowed to access this page.' }
       end
     end
