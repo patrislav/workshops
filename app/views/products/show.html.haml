@@ -42,6 +42,8 @@
     #reviews
       - if reviews.empty?
         .alert.alert-warning.empty-warning
-          There are no reviews to this product yet. Be first and #{link_to 'add one now', '#', class: 'show-form-btn'}!
+          There are no reviews to this product yet.
+          - if signed_in? 
+            Be first and #{link_to 'add one now', '#', class: 'show-form-btn'}!
       - else
         = render reviews
