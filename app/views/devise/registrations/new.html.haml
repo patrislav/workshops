@@ -1,10 +1,21 @@
-%h2 Sign up
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    = f.input :password, required: true
-    = f.input :password_confirmation, required: true
-  .form-actions
-    = f.button :submit, "Sign up"
-= render "devise/shared/links"
+.auth-page.container
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Sign up
+
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      .panel-body
+        .form-inputs
+          = f.input :firstname, label: 'First name', required: true, autofocus: true
+          = f.input :lastname, label: 'Last name', required: true
+          = f.input :email, required: true
+          = f.input :password, required: true
+          = f.input :password_confirmation, label: 'Confirm password', required: true
+
+      .panel-footer
+        .form-actions.pull-right
+          = f.submit "Sign up", class: 'btn btn-primary'
+        .clearfix
+
+
+
