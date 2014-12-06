@@ -3,7 +3,7 @@
 
   .media-body
     .header
-      .pull-right.rating= review.stars
+      .pull-right.rating{title: "#{review.rating} stars"}= review.stars
       %strong.author= link_to review.author, review.user
       %span.timestamp= review.publication_time
 

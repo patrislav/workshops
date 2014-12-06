@@ -1,6 +1,6 @@
 .review
   .header
-    .pull-right.rating= review.stars
+    .pull-right.rating{title: "#{review.rating} stars"}= review.stars
     %em Reviewed
     %strong.product= link_to review.product.title, [review.product.category, review.product]
     %span.timestamp= review.publication_time
