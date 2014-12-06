@@ -18,7 +18,7 @@
       %th Price
       %th
 
-    - category.products.each do |product|
+    - products.each do |product|
       %tr
         %td= link_to product.title, [category, product]
         %td
@@ -26,7 +26,7 @@
             = "%.2f" % product.average_rating
           - else
             %span.not-available N/A
-        %td $#{product.price}
+        %td= product.price
         %td
           - if signed_in? and (current_user.admin? or current_user == product.user)
             .pull-right
