@@ -33,3 +33,9 @@
               = link_to glyphicon(:pencil), edit_category_product_path(category, product), class: "btn btn-default btn-xs", title: 'Edit'
               = link_to glyphicon(:remove), [category, product], method: :delete, class: "btn btn-danger btn-xs", title: 'Remove', data: { confirm: 'Are you sure?' }
 
+    - if products.empty?
+      %tr
+        %td{colspan: 4}
+          .alert.alert-warning.empty-warning
+            There are no products in this category.
+

@@ -24,4 +24,9 @@
               = link_to glyphicon(:pencil), edit_category_path(category), title: 'Edit', class: 'btn btn-default btn-xs'
               = link_to glyphicon(:remove), category, method: :delete, title: 'Remove', class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' }
 
+    - if categories.empty?
+      %tr
+        %td{colspan: 3}
+          .alert.alert-warning.empty-warning
+            There are no categories.
 

@@ -2,6 +2,6 @@
 # All this logic will automatically be available in application.js.
 
 $(document).ready ->
-  $('#show-form-btn').click (event)->
+  $('.show-form-btn').click (event)->
     $('#review-form').slideToggle()
     event.preventDefault()

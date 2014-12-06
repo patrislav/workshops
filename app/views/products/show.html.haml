@@ -32,7 +32,7 @@
   .panel-heading
     - if signed_in?
       .pull-right
-        = link_to glyphicon(:plus), '#', title: 'Add new review', id: 'show-form-btn', class: 'btn btn-primary btn-sm'
+        = link_to glyphicon(:plus), '#', title: 'Add new review', class: 'btn btn-primary btn-sm show-form-btn'
     %h3.panel-title Reviews
 
   .panel-body
@@ -40,4 +40,8 @@
       = render 'reviews/form'
 
     #reviews
-      = render reviews
+      - if reviews.empty?
+        .alert.alert-warning.empty-warning
+          There are no reviews to this product yet. Be first and #{link_to 'add one now', '#', class: 'show-form-btn'}!
+      - else
+        = render reviews

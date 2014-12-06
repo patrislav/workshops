@@ -11,3 +11,7 @@
     .user-reviews
       - user.last_reviews.each do |review|
         = render partial: 'review', locals: { review: ReviewDecorator.new(review) }
+
+      - if user.last_reviews.empty?
+        .alert.alert-warning.empty-warning
+          This user has not reviewed any product yet.
